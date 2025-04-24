@@ -1,0 +1,190 @@
+<?php
+session_start();
+
+    include("../inc/connection.php");
+    
+   
+    $userCountQuery = mysqli_query($con, "SELECT COUNT(*) AS total FROM logintb");
+    $userCountRow = mysqli_fetch_assoc($userCountQuery);
+    $totalUsers = $userCountRow['total'];
+    ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartMind Admin Dashboard</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --light-purple: #a29bfe;
+      --background: #f8f9fc;
+      --card-bg: #ffffff;
+      --text-dark: #2d3436;
+      --text-light: #636e72;
+      --sidebar-bg: #6c5ce7;
+      --sidebar-hover: #594bcf;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background);
+    }
+
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: var(--sidebar-bg);
+      color: #fff;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      padding: 30px 20px;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 40px;
+      text-align: center;
+      font-size: 26px;
+      color: #fff;
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    .sidebar a i {
+      margin-right: 15px;
+    }
+
+    .sidebar a:hover {
+      background-color: var(--sidebar-hover);
+    }
+
+    .main {
+      margin-left: 250px;
+      padding: 30px;
+    }
+
+    .header {
+      background-color: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      color: var(--primary);
+    }
+
+    .dashboard {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(108, 92, 231, 0.1);
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card i {
+      font-size: 34px;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 18px;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
+      .main {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>🧠 SmartMind</h2>
+    <a href="admin.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="manage_users.php"><i class="fas fa-users-cog"></i> Manage Users</a>
+    <a href="manage_iqquestions.php"><i class="fas fa-brain"></i> IQ Tests</a>
+    <a href="add_question.php"><i class="fas fa-question"></i> Add Questions</a>
+    <a href="analytics.php"><i class="fas fa-chart-bar"></i> Analytics</a>
+    <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <h1>Welcome to SmartMind Admin 👩‍💼</h1>
+    </div>
+
+    <div class="dashboard">
+      <div class="card">
+        <i class="fas fa-users"></i>
+        <h3>Total Users</h3>
+        <p> <?= $totalUsers ?></p>
+
+      </div>
+      <div class="card">
+        <i class="fas fa-brain"></i>
+        <h3>IQ Tests</h3>
+        <p>Level 1–3</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-question-circle"></i>
+        <h3>Total Questions</h3>
+        <p>215 Questions</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Performance Insights</h3>
+        <p>Live Tracking</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
